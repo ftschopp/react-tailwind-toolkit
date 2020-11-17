@@ -1,3 +1,3 @@
-# React-ui-tailwind
+# react-tailwind-toolkit
 
-react ui components using tailwind css
+React components for faster and simpler web development. It uses Tailwind CSS.
