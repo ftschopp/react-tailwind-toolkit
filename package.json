@@ -1,0 +1,88 @@
+{
+    "name": "react-tailwind-toolkit",
+    "version": "0.0.0-development",
+    "main": "dist/index.cjs.js",
+    "module": "dist/index.esm.js",
+    "files": [
+        "dist"
+    ],
+    "release": {
+        "branches": [
+            "master",
+            "develop"
+        ]
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ftschopp/react-tailwind-toolkit"
+    },
+    "keywords": [
+        "react",
+        "tailwind"
+    ],
+    "author": {
+        "name": "Fernando Tschopp",
+        "email": "tschoppfernando@gmail.com"
+    },
+    "license": "MIT",
+    "peerDependencies": {
+        "react": ">=16.8.0",
+        "react-dom": ">=16.8.0"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.12.1",
+        "@babel/core": "^7.12.3",
+        "@babel/preset-env": "^7.12.1",
+        "@babel/preset-react": "^7.12.1",
+        "@rollup/plugin-commonjs": "^16.0.0",
+        "@rollup/plugin-image": "^2.0.5",
+        "@rollup/plugin-node-resolve": "^10.0.0",
+        "react": "^17.0.1",
+        "react-dom": "^17.0.1",
+        "react-scripts": "4.0.0",
+        "rollup": "^2.32.1",
+        "rollup-plugin-babel": "^4.4.0",
+        "rollup-plugin-peer-deps-external": "^2.2.4",
+        "rollup-plugin-postcss": "^3.1.8",
+        "rollup-plugin-visualizer": "^4.1.2"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "rollup -c",
+        "test": "jest",
+        "eject": "react-scripts eject",
+        "build:tailwind": "tailwindcss build src/tailwind.css -o src/tailwind.output.css",
+        "prestart": "npm run build:tailwind",
+        "prebuild": "npm run build:tailwind"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "engines": {
+        "node": ">=7.8.0"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-svg-core": "^1.2.32",
+        "@fortawesome/free-solid-svg-icons": "^5.15.1",
+        "@fortawesome/react-fontawesome": "^0.1.12",
+        "@headlessui/react": "^0.2.0",
+        "date-fns": "^2.16.1",
+        "ramda": "^0.27.1",
+        "ramda-adjunct": "^2.28.0",
+        "react-table": "^7.6.1",
+        "tailwindcss": "^1.9.6",
+        "wicg-inert": "^3.1.0"
+    }
+}
