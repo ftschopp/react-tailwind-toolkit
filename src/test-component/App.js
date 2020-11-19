@@ -55,7 +55,7 @@ function App() {
         </div>
 
         <div className="w-1/3 mx-2">
-          <TextInput error={id === '' ? 'Error' : ''} />
+          <TextInput error={id === '' ? 'Error' : ''} showCheck={true} />
           <p className="h-64 bg-yellow-100">este es un parrafo cualquiera</p>
         </div>
       </div>
