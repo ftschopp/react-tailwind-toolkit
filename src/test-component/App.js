@@ -1,5 +1,5 @@
-import React from 'react';
-import { Datepicker, Dropdown, Select } from '../lib';
+import React, { useState } from 'react';
+import { Datepicker, Dropdown, Select, TextInput } from '../lib';
 import '../tailwind.output.css';
 
 function App() {
@@ -18,6 +18,8 @@ function App() {
     { id: '12', description: 'opcion L' },
     { id: '13', description: 'opcion M' },
   ];
+
+  const [id, setId] = useState('');
   return (
     <div className="App">
       {/* <Button className="py-2 w-32" label="Siguiente" type="submit" /> */}
@@ -43,8 +45,17 @@ function App() {
 
           <Select
             options={options}
-            onChange={(e) => console.log('EVENT CHANGE', e)}
+            onChange={(e) => {
+              console.log('EVENT CHANGE', e);
+              setId(e.id);
+            }}
+            error={id === '' ? 'Error' : ''}
           />
+          <p className="h-64 bg-yellow-100">este es un parrafo cualquiera</p>
+        </div>
+
+        <div className="w-1/3 mx-2">
+          <TextInput error={id === '' ? 'Error' : ''} />
           <p className="h-64 bg-yellow-100">este es un parrafo cualquiera</p>
         </div>
       </div>
