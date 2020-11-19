@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback, useEffect } from 'react';
+import React from 'react';
 import { isNilOrEmpty } from 'ramda-adjunct';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faAngleDown } from '@fortawesome/free-solid-svg-icons';

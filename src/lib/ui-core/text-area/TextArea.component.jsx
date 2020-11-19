@@ -37,7 +37,7 @@ const TextArea = ({ label, touched, error, ...props }) => {
             />
           </span>
         )}
-        {hasError ? <p className="text-xs text-red-600">{error}</p> : null}
+        <p className="text-xs text-red-600 h-5">{hasError ? error : ''}</p>
       </div>
     </>
   );
