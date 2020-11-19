@@ -75,9 +75,9 @@ const Select = ({
           />
         </div>
       )}
-      {hasError && !open ? (
-        <p className="text-xs text-red-600">{error}</p>
-      ) : null}
+      <p className="text-xs text-red-600 h-5">
+        {!open && hasError ? error : ''}
+      </p>
     </div>
   );
 };
