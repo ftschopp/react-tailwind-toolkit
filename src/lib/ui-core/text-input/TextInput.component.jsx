@@ -1,6 +1,10 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
+import {
+  faTimes,
+  faCheck,
+  faExclamationTriangle,
+} from '@fortawesome/free-solid-svg-icons';
 import { isNil, isEmpty } from 'ramda';
 
 const isNilOrEmpty = (value) => isNil(value) || isEmpty(value);
@@ -28,7 +32,11 @@ const TextInput = ({
   const showCheck = showOk && hasValue && !hasError;
   // const textColor = showCheck ? 'text-green-700' : hasError ? '' : 'text-gray-400';
   const iconClass = `flex z-10 leading-snug font-normal absolute text-center absolute bg-transparent rounded text-base items-center justify-center h-8 w-8 `;
-  const rightIcon = showCheck ? faCheck : hasError ? faTimes : null;
+  const rightIcon = showCheck
+    ? faCheck
+    : hasError
+    ? faExclamationTriangle
+    : null;
   return (
     <>
       <div className={`relative flex flex-wrap items-stretch ${className}`}>
@@ -57,9 +65,12 @@ const TextInput = ({
               />
             )}
           </span>
+          {/* <div className="absolute top-0 z-10 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-1/2 -translate-y-full bg-orange-500 rounded-lg shadow-lg">
+            Hi, I am Tooltip
+          </div> */}
         </div>
-        <p className="text-xs text-red-600 h-5">{hasError ? error : ''}</p>
       </div>
+      <p className="text-xs text-red-600 h-5">{hasError ? error : ''}</p>
     </>
   );
 };

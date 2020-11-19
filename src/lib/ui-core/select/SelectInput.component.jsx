@@ -32,7 +32,9 @@ const SelectInput = ({
     >
       <div className="w-full flex items-center p-1 pl-2">
         <input
-          className="bg-transparent focus:outline-none w-full"
+          className={`bg-transparent focus:outline-none w-full ${
+            !selected ? 'text-gray-400' : ''
+          }`}
           type="text"
           value={selected?.description}
           onClick={onClick}
