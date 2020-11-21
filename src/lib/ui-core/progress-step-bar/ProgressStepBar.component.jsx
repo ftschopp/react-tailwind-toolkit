@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
@@ -15,7 +15,7 @@ const ProgressStepBar = ({ className, steps, activeStep }) => {
             const showCompleted = index < activeStep;
             const isLastStep = index === steps.length - 1;
             return (
-              <>
+              <Fragment key={index}>
                 <div className="flex-1">
                   <div>
                     {!showCompleted && (
@@ -55,7 +55,7 @@ const ProgressStepBar = ({ className, steps, activeStep }) => {
                     </div>
                   </div>
                 )}
-              </>
+              </Fragment>
             );
           })}
 

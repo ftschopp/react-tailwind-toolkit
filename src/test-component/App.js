@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { Datepicker, Dropdown, Select, TextInput } from '../lib';
+import {
+  Datepicker,
+  Dropdown,
+  Select,
+  TextInput,
+  ProgressStepBar,
+} from '../lib';
 import '../tailwind.output.css';
 
 function App() {
@@ -20,12 +26,14 @@ function App() {
   ];
 
   const [id, setId] = useState('5');
+  const steps = [{ description: 'Información' }, { description: 'Mapa' }];
   return (
     <div className="App">
       {/* <Button className="py-2 w-32" label="Siguiente" type="submit" /> */}
 
       <div className="flex">
         <div className="w-1/3 mx-2">
+          <ProgressStepBar steps={steps} activeStep={1} />
           {/* <Datepicker value={'2020-04-24T00:00:00'} /> */}
           {/* <Dropdown
             options={options}
