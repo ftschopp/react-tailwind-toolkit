@@ -28,7 +28,6 @@ const Select = ({
   const ref = useRef();
   // Call hook passing in the ref and a function to call on outside click
   useOnClickOutside(ref, (aaa) => {
-    console.log('aaa', aaa);
     setOpen(false);
   });
 

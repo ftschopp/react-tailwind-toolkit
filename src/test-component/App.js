@@ -19,7 +19,7 @@ function App() {
     { id: '13', description: 'opcion M' },
   ];
 
-  const [id, setId] = useState('');
+  const [id, setId] = useState('5');
   return (
     <div className="App">
       {/* <Button className="py-2 w-32" label="Siguiente" type="submit" /> */}
@@ -45,6 +45,7 @@ function App() {
 
           <Select
             options={options}
+            value={id}
             onChange={(e) => {
               console.log('EVENT CHANGE', e);
               setId(e.id);
