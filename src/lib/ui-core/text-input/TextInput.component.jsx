@@ -21,7 +21,7 @@ const TextInput = ({
   touched,
   error,
   onChange,
-  autocomplete,
+  autoComplete,
   ...props
 }) => {
   const hasError = !isNilOrEmpty(error);
@@ -48,7 +48,7 @@ const TextInput = ({
           )}
           <input
             type="text"
-            autocomplete={autocomplete}
+            autoComplete={autoComplete}
             className={`py-1 pl-2 placeholder-gray-400 relative bg-white bg-white border border-gray-300 rounded text-sm shadow-sm outline-none focus:outline-none focus:border-blue-300 w-full ${
               icon ? 'pl-10' : ''
             }  ${hasError ? 'pr-10' : ''} ${hasError ? errorClasses : ''}`}
