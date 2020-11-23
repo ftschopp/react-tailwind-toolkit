@@ -20,9 +20,7 @@ const Select = ({
   const [open, setOpen] = useState(false);
   const defaultOption = { id: '', description: 'Seleccione una opción' };
   const selectedOption = options?.find((x) => x.id === value);
-  const [selected, setSelected] = useState(
-    selectedOption ? selectedOption : defaultOption
-  );
+  const selected = selectedOption ? selectedOption : defaultOption;
   const [filtered, setFiltered] = useState(null);
 
   const ref = useRef();
@@ -38,7 +36,6 @@ const Select = ({
 
   const onSelectedItem = useCallback(
     (e) => {
-      setSelected(e);
       setFiltered(null);
       setOpen(false);
       onChange && onChange(e);
@@ -46,18 +43,17 @@ const Select = ({
     [onChange]
   );
 
+  console.log('selected', selected);
   return (
     <div ref={ref} className="relative flex flex-col flex-wrap items-stretch">
       <SelectInput
         hasError={!open && hasError}
         selected={selected}
         onChange={(e) => {
-          setSelected(null);
           setOpen(true);
           setFiltered(e.target.value);
         }}
         onClearSelection={() => {
-          setSelected(defaultOption);
           setFiltered(null);
           onChange && onChange(defaultOption);
         }}
