@@ -1,25 +1,35 @@
-import React, { useState, useCallback } from 'react';
-import { format, getTime, add, startOfMonth, parseISO } from 'date-fns';
+import React, { useState, useRef, useCallback } from 'react';
+import { format, getTime, add, parseISO } from 'date-fns';
 import { isNilOrEmpty } from 'ramda-adjunct';
 import CalendarInput from './parts/CalendarInput.component';
 import CalendarBody from './parts/CalendarBody.component';
+import useOnClickOutside from '../../hooks/click-outside';
 
-const Datepicker = ({ className, value }) => {
+const Datepicker = ({ className, value, onChange, hasError, onBlur }) => {
   const [showBody, setShowBody] = useState(false);
 
   const [currentDate, setCurrentDate] = useState(
     isNilOrEmpty(value) ? getTime(new Date()) : parseISO(value)
+    // isNilOrEmpty(value) ? '' : parseISO(value)
   );
   const [selectedDate, setSelectedDate] = useState(
-    isNilOrEmpty(value) ? getTime(new Date()) : parseISO(value)
+    // isNilOrEmpty(value) ? getTime(new Date()) : parseISO(value)
+    isNilOrEmpty(value) ? '' : parseISO(value)
   );
+
+  const ref = useRef();
+  // Call hook passing in the ref and a function to call on outside click
+  useOnClickOutside(ref, (aaa) => {
+    setShowBody(false);
+    onBlur();
+  });
 
   const onNextClick = useCallback(() => {
     const result = add(currentDate, {
       months: 1,
     });
     setCurrentDate(getTime(result));
-    setSelectedDate(getTime(startOfMonth(result)));
+    //setSelectedDate(getTime(startOfMonth(result)));
   }, [currentDate]);
 
   const onBackClick = useCallback(() => {
@@ -28,7 +38,7 @@ const Datepicker = ({ className, value }) => {
     });
 
     setCurrentDate(getTime(result));
-    setSelectedDate(getTime(startOfMonth(result)));
+    //setSelectedDate(getTime(startOfMonth(result)));
   }, [currentDate]);
 
   const onClickDate = useCallback(
@@ -36,15 +46,25 @@ const Datepicker = ({ className, value }) => {
       const { timestamp } = event;
       setSelectedDate(timestamp);
       setShowBody(!showBody);
+      onChange(format(timestamp, 'yyyy-MM-dd'));
     },
-    [showBody]
+    [onChange, showBody]
   );
 
   return (
-    <div className={`relative flex flex-wrap items-stretch ${className}`}>
+    <div
+      ref={ref}
+      className={`relative flex flex-wrap items-stretch ${className}`}
+    >
       <CalendarInput
-        onClick={() => setShowBody(!showBody)}
-        value={format(selectedDate, 'yyyy-MM-dd')}
+        hasError={hasError}
+        onClick={(e) => {
+          setShowBody(!showBody);
+        }}
+        value={
+          isNilOrEmpty(selectedDate) ? '' : format(selectedDate, 'yyyy-MM-dd')
+        }
+        // value={format(selectedDate, 'yyyy-MM-dd')}
       />
       {showBody && (
         <CalendarBody

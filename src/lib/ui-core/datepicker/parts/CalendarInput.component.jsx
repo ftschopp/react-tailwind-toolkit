@@ -1,12 +1,17 @@
 import React from 'react';
 
-function CalendarInput({ value, onClick }) {
+function CalendarInput({ value, onClick, hasError }) {
   const iconClass = `flex z-10 leading-snug font-normal absolute text-center absolute bg-transparent rounded text-base items-center justify-center h-8 w-8 right-0 cursor-pointer`;
+  const errorClasses = `text-red-300 bg-red-100 border-red-300 
+    focus:border-red-300 placeholder-red-600`;
   return (
     <div className="flex w-full max-h-8 h-8">
       <input
+        readOnly={true}
         type="text"
-        className="pl-2 placeholder-gray-400 relative bg-white bg-white border border-gray-300 rounded text-sm shadow-sm outline-none focus:outline-none focus:border-blue-300 w-full cursor-pointer"
+        className={`pl-2 placeholder-gray-400 relative bg-white bg-white border border-gray-300 rounded text-sm shadow-sm outline-none focus:outline-none focus:border-blue-300 w-full cursor-pointer focus:ring-0 ${
+          hasError ? errorClasses : ''
+        }`}
         value={value}
         onClick={onClick}
       />
