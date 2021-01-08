@@ -10,27 +10,27 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInbox } from '@fortawesome/free-solid-svg-icons';
 
-const IndeterminateCheckbox = React.forwardRef(
-  ({ indeterminate, ...rest }, ref) => {
-    const defaultRef = React.useRef();
-    const resolvedRef = ref || defaultRef;
+// const IndeterminateCheckbox = React.forwardRef(
+//   ({ indeterminate, ...rest }, ref) => {
+//     const defaultRef = React.useRef();
+//     const resolvedRef = ref || defaultRef;
 
-    React.useEffect(() => {
-      resolvedRef.current.indeterminate = indeterminate;
-    }, [resolvedRef, indeterminate]);
+//     React.useEffect(() => {
+//       resolvedRef.current.indeterminate = indeterminate;
+//     }, [resolvedRef, indeterminate]);
 
-    return (
-      <>
-        <input
-          className="form-checkbox rowCheckbox focus:outline-none focus:shadow-outline"
-          type="checkbox"
-          ref={resolvedRef}
-          {...rest}
-        />
-      </>
-    );
-  }
-);
+//     return (
+//       <>
+//         <input
+//           className="form-checkbox rowCheckbox focus:outline-none focus:shadow-outline"
+//           type="checkbox"
+//           ref={resolvedRef}
+//           {...rest}
+//         />
+//       </>
+//     );
+//   }
+// );
 
 function Table({
   columns,
@@ -54,7 +54,7 @@ function Table({
     []
   );
 
-  const headerProps = (props, { column }) => getStyles(props, column.align);
+  // const headerProps = (props, { column }) => getStyles(props, column.align);
 
   const cellProps = (props, { cell }) => getStyles(props, cell.column.align);
 
@@ -190,7 +190,7 @@ function Table({
             </div>
           );
         })}
-        {!loading && rows && rows.length == 0 && (
+        {!loading && rows && rows.length === 0 && (
           <div className="flex flex-col h-full items-center justify-center">
             <FontAwesomeIcon size="3x" color="#dce1e6" icon={faInbox} />
             <p className="text-lg leading-4 font-medium text-gray-500">

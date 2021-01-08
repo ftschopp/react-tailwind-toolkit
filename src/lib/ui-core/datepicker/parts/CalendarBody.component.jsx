@@ -5,6 +5,7 @@ import SelectorPicker from './SelectorPicker.component';
 import { splitEvery } from 'ramda';
 import { getYear, getMonth } from 'date-fns';
 import { getMonthDetails } from '../util';
+import { isNilOrEmpty } from 'ramda-adjunct';
 
 function CalendarBody({
   currentDate,
@@ -18,15 +19,18 @@ function CalendarBody({
     getMonthDetails(getYear(currentDate), getMonth(currentDate))
   );
 
-  const renderBeforeMonth = ({ date }) => (
-    <div className="w-1/6 flex justify-center my-2px cursor-not-allowed bg-gray-100">
+  const renderBeforeMonth = ({ date }, key) => (
+    <div
+      key={key}
+      className="w-1/6 flex justify-center my-2px cursor-not-allowed bg-gray-100"
+    >
       <div className="h-8 w-8 flex justify-center items-center">
         <div className="text-xs opacity-75 text-red-400">{date}</div>
       </div>
     </div>
   );
 
-  const renderCurrentMonth = ({ timestamp, date }) => {
+  const renderCurrentMonth = ({ timestamp, date }, key) => {
     const isSelected = timestamp === selectedDate;
     const selectedClass = isSelected
       ? 'bg-red-500 shadow-xs text-blue-600'
@@ -34,6 +38,7 @@ function CalendarBody({
     const numberSelectedClass = isSelected ? 'z-10 text-white' : '';
     return (
       <div
+        key={key}
         className="w-1/6 group flex justify-center items-center my-2px"
         onClick={() => onClickDate({ timestamp })}
       >
@@ -53,8 +58,11 @@ function CalendarBody({
     );
   };
 
-  const renderNextMonth = ({ date }) => (
-    <div className="w-1/6 flex justify-center my-2px cursor-not-allowed bg-gray-100">
+  const renderNextMonth = ({ date }, key) => (
+    <div
+      key={key}
+      className="w-1/6 flex justify-center my-2px cursor-not-allowed bg-gray-100"
+    >
       <div className="h-8 w-8 flex justify-center items-center">
         <div className="text-xs opacity-75">{date}</div>
       </div>
@@ -62,13 +70,13 @@ function CalendarBody({
   );
 
   const renderRow = (row) => {
-    return row.map((item) => {
+    return row.map((item, index) => {
       if (item.month === -1) {
-        return renderBeforeMonth(item);
+        return renderBeforeMonth(item, index);
       } else if (item.month === 0) {
-        return renderCurrentMonth(item);
+        return renderCurrentMonth(item, index);
       } else {
-        return renderNextMonth(item);
+        return renderNextMonth(item, index);
       }
     });
   };
@@ -76,7 +84,9 @@ function CalendarBody({
   return (
     <div className="absolute bg-white border mt-8 rounded-b-lg shadow-md w-64 z-10">
       <div className="w-full p-2">
-        <TitleHeader date={selectedDate} />
+        <TitleHeader
+          date={isNilOrEmpty(selectedDate) ? currentDate : selectedDate}
+        />
         <SelectorPicker
           date={currentDate}
           onBackClick={onBackClick}
@@ -87,9 +97,13 @@ function CalendarBody({
 
         <div className="flex flex-col justify-between">
           {monthDetail &&
-            monthDetail.map((row) => (
-              <div className="flex justify-center">{renderRow(row)}</div>
-            ))}
+            monthDetail.map((row, index) => {
+              return (
+                <div key={index} className="flex justify-center">
+                  {renderRow(row)}
+                </div>
+              );
+            })}
         </div>
       </div>
     </div>

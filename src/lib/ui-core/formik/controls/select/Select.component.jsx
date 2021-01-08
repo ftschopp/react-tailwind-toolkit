@@ -3,7 +3,7 @@ import { filter, propSatisfies, includes } from 'ramda';
 import { isNilOrEmpty } from 'ramda-adjunct';
 import SelectInput from './SelectInput.component';
 import SelectItems from './SelectItems.component';
-import useOnClickOutside from '../../hooks/click-outside';
+import useOnClickOutside from '../../../../hooks/click-outside';
 
 const Select = ({
   label,
