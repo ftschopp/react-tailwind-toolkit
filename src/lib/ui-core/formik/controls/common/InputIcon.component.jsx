@@ -1,6 +1,10 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+/**
+ * InputIcon
+ * @param {*} param0
+ */
 function InputIcon({ className, iconClassName, icon }) {
   if (icon) {
     return (
