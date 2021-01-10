@@ -5,6 +5,10 @@ import CalendarInput from './parts/CalendarInput.component';
 import CalendarBody from './parts/CalendarBody.component';
 import useOnClickOutside from '../../hooks/click-outside';
 
+/**
+ *
+ * @param {*} param0
+ */
 const Datepicker = ({ className, value, onChange, hasError, onBlur }) => {
   const [showBody, setShowBody] = useState(false);
 
