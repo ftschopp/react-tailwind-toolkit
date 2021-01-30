@@ -1,54 +1,99 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Icon } from '../../icons';
+
+const LoadingComponent = ({}) => {
+  return (
+    <svg
+      className="flex justify-center w-full animate-spin h-5 w-5 text-white"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <circle
+        className="opacity-25"
+        cx="12"
+        cy="12"
+        r="10"
+        stroke="currentColor"
+        strokeWidth="4"
+      ></circle>
+      <path
+        className="opacity-75"
+        fill="currentColor"
+        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+      ></path>
+    </svg>
+  );
+};
+
+const ButtonContent = ({
+  leftIcon,
+  leftIconClassName,
+  rightIcon,
+  rightIconClassName,
+  children,
+}) => {
+  return (
+    <>
+      <span className="flex justify-center w-8 px-2">
+        {leftIcon && (
+          <Icon
+            name={leftIcon}
+            width="18px"
+            height="18px"
+            className={leftIconClassName}
+          />
+        )}
+      </span>
+      <span className="w-full text-sm text-white">{children}</span>
+      <span className="flex justify-center w-8 px-2">
+        {rightIcon && (
+          <Icon
+            name={rightIcon}
+            width="16px"
+            height="16px"
+            className={rightIconClassName}
+          />
+        )}
+      </span>
+    </>
+  );
+};
 
 const Button = ({
   className,
-  color,
-  label,
-  iconLeft,
-  iconRight,
+  leftIcon,
+  leftIconClassName,
+  rightIcon,
+  rightIconClassName,
   isLoading,
   loadingText,
-  icon,
-
+  children,
   ...props
 }) => {
-  const bgColor = `bg-${color}-600 hover:bg-${color}-500`;
-  const activeColor = `focus:outline-none focus:border-${color}-700 focus:shadow-outline-${color} active:bg-${color}-700`;
-  // const cursor = isLoading ? 'cursor-not-allowed' : 'cursor-pointer';
-  // const labelBtn = isLoading ? loadingText : label;
-  // const padding = isLoading ? 'px-8' : 'px-12';
+  const cursor = isLoading ? 'cursor-not-allowed' : 'cursor-pointer';
+  const classes = `w-32 h-8 border border-gray-light inline-flex items-center rounded-md transition 
+  ease-in-out duration-150 ${cursor}`;
+  const focusClasses = `focus:outline-none`;
+  const hoverClasses = `hover:bg-gray-100 hover:border-gray-400`;
+  const textClasses = `text-base leading-6 font-medium`;
+
   return (
     <>
       <button
-        className={`inline-flex justify-center items-center border border-transparent text-base leading-6 font-medium rounded-md 
-        text-white ${bgColor} ${activeColor} transition ease-in-out duration-150 ${className}`}
+        className={`${classes} ${focusClasses} ${textClasses} ${hoverClasses} ${className}`}
         {...props}
       >
-        {isLoading && (
-          <svg
-            className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <circle
-              className="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              strokeWidth="4"
-            ></circle>
-            <path
-              className="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-            ></path>
-          </svg>
+        {isLoading && <LoadingComponent />}
+        {!isLoading && (
+          <ButtonContent
+            leftIcon={leftIcon}
+            leftIconClassName={leftIconClassName}
+            rightIcon={rightIcon}
+            rightIconClassName={rightIconClassName}
+            children={children}
+          />
         )}
-        {icon && <FontAwesomeIcon icon={icon} />}
-        {!icon && label}
       </button>
     </>
   );
@@ -56,10 +101,10 @@ const Button = ({
 
 // Same approach for defaultProps too
 Button.defaultProps = {
-  className: '',
-  color: 'blue',
+  className: 'bg-blue-200',
+  leftIcon: '',
+  rightIcon: '',
   loadingText: '',
-  type: 'button',
 };
 
 export default Button;

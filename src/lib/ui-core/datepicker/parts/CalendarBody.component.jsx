@@ -45,7 +45,7 @@ function CalendarBody({
         <div className="relative overflow-hidden rounded-full">
           <div className="relative h-8 w-8 flex justify-center items-center overflow-hidden rounded-full cursor-pointer">
             <div
-              className={`absolute inset-0 transition duration-150 ease-in-out border border-8 border-transparent rounded-full hover:border-red-500 ${selectedClass}`}
+              className={`absolute inset-0 transition duration-150 ease-in-out border-2 border-transparent rounded-full hover:border-2 hover:border-4 hover:border-red-500 ${selectedClass}`}
             ></div>
             <div className="flex justify-center items-center">
               <div className={numberSelectedClass}>

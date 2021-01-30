@@ -1,68 +1,87 @@
-import React, { Fragment } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import React, { useMemo, Fragment } from 'react';
+import { Icon } from '../../icons';
+import { find, propSatisfies, gt, compose, prop } from 'ramda';
 
-const ProgressStepBar = ({ className, steps, activeStep }) => {
+const StepCheckpoint = ({ number, porcentage, active }) => {
+  const isCompleted = porcentage === 100;
+
   return (
-    <>
+    <div className="mx-1">
       <div
-        className={`max-w-full mx-auto my-4 border-b-2 pb-1 bg-white${className}`}
+        className={`w-10 h-10 ${
+          isCompleted ? 'bg-green-300' : 'bg-green-100'
+        } mx-auto rounded-full text-lg text-white flex items-center ${
+          active ? 'border-4 border-green-300' : ''
+        }`}
       >
-        <div className="flex pb-1">
-          <div className="flex-1"></div>
-          {steps.map((step, index) => {
-            const current = index === activeStep;
-            const showCompleted = index < activeStep;
-            const isLastStep = index === steps.length - 1;
-            return (
-              <Fragment key={index}>
-                <div className="flex-1">
-                  <div>
-                    {!showCompleted && (
-                      <div
-                        className={`w-10 h-10 bg-white border-2 ${
-                          current
-                            ? 'border-green-400 bg-green-300'
-                            : 'border-grey-light'
-                        } mx-auto rounded-full text-lg text-white flex items-center`}
-                      >
-                        <span className="text-gray-600 text-center w-full">
-                          {index + 1}
-                        </span>
-                      </div>
-                    )}
-                    {showCompleted && (
-                      <div className="w-10 h-10 border-2 border-green-400 mx-auto rounded-full flex items-center justify-center bg-green-300">
-                        <FontAwesomeIcon icon={faCheck} color="green" />
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex text-xs content-center text-center justify-center">
-                    {step.description}
-                  </div>
-                </div>
-                {!isLastStep && (
-                  <div className="w-1/6 align-center items-center align-middle content-center flex">
-                    <div
-                      className={`w-full rounded items-center align-middle align-center flex-1 ${
-                        showCompleted ? 'bg-green-400' : 'bg-gray-300'
-                      }`}
-                    >
-                      <div
-                        className="text-xs leading-none py-1 text-center text-grey-darkest rounded "
-                        style={{ width: '100%' }}
-                      ></div>
-                    </div>
-                  </div>
-                )}
-              </Fragment>
-            );
-          })}
-
-          <div className="flex-1"></div>
-        </div>
+        {isCompleted && (
+          <Icon name="tick" className="w-full fill-current text-white" />
+        )}
+        {!isCompleted && (
+          <span className="text-gray-300 text-center w-full">{number}</span>
+        )}
       </div>
-    </>
+    </div>
+  );
+};
+
+const StepProgress = ({ porcentage }) => {
+  return (
+    <div className="align-center align-middle content-center flex items-center mx-1 my-4 w-32">
+      <div className="w-full bg-gray-100 h-2 rounded items-center align-middle align-center">
+        <div
+          className="bg-green-300 text-xs leading-none py-1 text-center text-red-400 rounded mb-4"
+          style={{ width: `${porcentage}%` }}
+        ></div>
+      </div>
+    </div>
+  );
+};
+
+const getActiveStepNumber = compose(
+  prop('number'),
+  find(propSatisfies(gt(100), 'porcentage'))
+);
+
+const ProgressStepBar = ({ className, steps }) => {
+  const activeStep = useMemo(() => getActiveStepNumber(steps), [steps]);
+
+  const stepLength = steps.length;
+
+  const maxCol = stepLength * 4;
+
+  return (
+    <div class={`grid grid-cols-${maxCol} gap-0`}>
+      <div class="row-start-1 col-start-1 w-16"></div>
+      {steps.map((step, i) => {
+        const isLastStep = i + 1 === stepLength;
+        const { porcentage, number } = step;
+        return (
+          <>
+            <div class={`row-start-1 col-start-${4 * (i + 1) - 2} col-span-2`}>
+              <StepCheckpoint
+                number={number}
+                porcentage={porcentage}
+                active={i + 1 === activeStep}
+              />
+            </div>
+            {!isLastStep && (
+              <div class="row-start-1 col-span-2">
+                <StepProgress porcentage={porcentage} />
+              </div>
+            )}
+            <div
+              class={`row-start-2 col-start-${
+                i * 4 + 1
+              } col-span-4 flex justify-center text-sm`}
+            >
+              {step.description}
+            </div>
+          </>
+        );
+      })}
+      <div className={`row-start-1 col-start-${maxCol - 1} w-16`}></div>
+    </div>
   );
 };
 
