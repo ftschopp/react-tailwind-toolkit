@@ -25,7 +25,7 @@ function SelectorPicker({ date, onNextClick, onBackClick }) {
           </div>
         </div>
         <div className="flex flex-1">
-          <div className="flex-1 rounded overflow-hidden py-1 ml-2 mr-1 text-center cursor-pointer transition duration-150 ease-out hover:bg-gray-200">
+          <div className="flex-1 rounded overflow-hidden py-1 ml-2 mr-1 text-center cursor-pointer transition duration-150 ease-out hover:bg-gray-200 capitalize">
             {monthString}
           </div>
           <div className="flex-1 rounded overflow-hidden py-1 mr-2 ml-1 text-center cursor-pointer transition duration-150 ease-out hover:bg-gray-200">

@@ -1,15 +1,27 @@
 import React, { useState } from 'react';
-
+import Checkbox from '../lib/ui-core/checkbox/Checkbox.component';
+import { Icon } from '../lib/icons';
 import '../tailwind.output.css';
 import FormikContainer from './FormikContainer';
 
 function App() {
+  const [colorSelected, setColor] = useState();
   return (
     <div className="App px-64 py-32">
       {/* <Button className="py-2 w-32" label="Siguiente" type="submit" /> */}
       <h1>Probando Formik</h1>
-      <FormikContainer />
 
+      <Checkbox
+        label="colores"
+        name="color"
+        value={colorSelected}
+        onChange={(id) => setColor(id)}
+        options={[
+          { id: 'blue', description: 'blue' },
+          { id: 'red', description: 'red' },
+        ]}
+      />
+      {/* <FormikContainer /> */}
       {/* <div className="flex">
         <div className="w-1/3 mx-2">
           <ProgressStepBar steps={steps} activeStep={1} />

@@ -9,10 +9,12 @@ function TitleHeader({ date }) {
 
   return (
     <div className="flex flex-row justify-center items-center px-2 py-1">
-      <div className="flex items-center text-2xl xl:text-3xl">{day}</div>
+      <div className="flex items-center text-2xl xl:text-3xl capitalize">
+        {day}
+      </div>
       <div className="mx-1">
-        <div className="leading-none text-xxs">{dayString}</div>
-        <div className="leading-none text-xs">{monthString}</div>
+        <div className="leading-none text-xs capitalize">{dayString}</div>
+        <div className="leading-none text-xs capitalize">{monthString}</div>
       </div>
     </div>
   );

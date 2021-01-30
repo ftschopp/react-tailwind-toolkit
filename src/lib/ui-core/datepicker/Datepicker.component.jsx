@@ -9,7 +9,7 @@ import useOnClickOutside from '../../hooks/click-outside';
  *
  * @param {*} param0
  */
-const Datepicker = ({ className, value, onChange, hasError, onBlur }) => {
+const Datepicker = ({ className, value, onChange, error, touched, onBlur }) => {
   const [showBody, setShowBody] = useState(false);
 
   const [currentDate, setCurrentDate] = useState(
@@ -55,6 +55,8 @@ const Datepicker = ({ className, value, onChange, hasError, onBlur }) => {
     [onChange, showBody]
   );
 
+  const hasError = error && touched;
+
   return (
     <div
       ref={ref}
@@ -70,6 +72,7 @@ const Datepicker = ({ className, value, onChange, hasError, onBlur }) => {
         }
         // value={format(selectedDate, 'yyyy-MM-dd')}
       />
+      <p className="text-sm text-red-600">{error}</p>
       {showBody && (
         <CalendarBody
           currentDate={currentDate}

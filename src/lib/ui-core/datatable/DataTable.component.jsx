@@ -7,8 +7,7 @@ import {
   usePagination,
   useSortBy,
 } from 'react-table';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInbox } from '@fortawesome/free-solid-svg-icons';
+import { Icon } from '../../icons';
 
 // const IndeterminateCheckbox = React.forwardRef(
 //   ({ indeterminate, ...rest }, ref) => {
@@ -81,9 +80,9 @@ function Table({
       data,
       defaultColumn,
       useSortBy,
-      initialState: {
-        selectedRowIds: selectedRows,
-      },
+      // initialState: {
+      //   selectedRowIds: selectedRows,
+      // },
     },
     useSortBy,
     usePagination,
@@ -192,15 +191,17 @@ function Table({
         })}
         {!loading && rows && rows.length === 0 && (
           <div className="flex flex-col h-full items-center justify-center">
-            <FontAwesomeIcon size="3x" color="#dce1e6" icon={faInbox} />
+            <Icon
+              name="inbox"
+              width="30px"
+              height="30px"
+              className="fill-current text-gray-500"
+            />
             <p className="text-lg leading-4 font-medium text-gray-500">
               no hay datos
             </p>
           </div>
         )}
-        {/* <div className="flex flex-col h-full items-center justify-center opacity-75 bg-gray-100">
-          <p className="text-red-900 ">cargando...</p>
-        </div> */}
       </div>
       <div className="border-t-2 bg-gray-100 px-4 py-3 hidden sm:flex-1 sm:flex sm:items-center sm:justify-between h-16">
         <div className="px-2">
