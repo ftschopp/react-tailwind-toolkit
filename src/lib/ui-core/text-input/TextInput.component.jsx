@@ -31,7 +31,7 @@ function TextInput(props) {
     hasError ? 'pr-10 focus:border-red-300' : 'focus:border-blue-300'
   } ${hasError ? errorClasses : ''}`;
   return (
-    <div>
+    <div className="relative flex flex-col flex-wrap items-stretch">
       <label htmlFor={name} className="text-sm text-gray-600">
         {label}
       </label>
