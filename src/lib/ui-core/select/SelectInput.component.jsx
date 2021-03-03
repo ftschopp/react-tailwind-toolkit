@@ -28,13 +28,13 @@ const SelectInput = ({
     <div
       className={`bg-white border border-gray-300 cursor-pointer duration-150 ease-in-out 
       flex flex-column focus:border-blue-300 focus:outline-none focus:shadow-outline-blue 
-      justify-betweenrelative rounded shadow-sm sm:leading-1 sm:text-sm text-left 
+      justify-between relative rounded shadow-sm sm:leading-1 sm:text-sm text-left 
       transition w-full ${hasError ? errorClasses : ''} ${className}`}
     >
       <div className="w-full flex items-center pl-2">
         <input
           readOnly={true}
-          className={`cursor-pointer py-1 pl-2 placeholder-gray-400 relative bg-white bg-white border border-transparent rounded focus:ring-0
+          className={`cursor-pointer py-1 pl-2 placeholder-gray-400 relative bg-transparent border border-transparent rounded focus:ring-0
           text-sm focus:outline-none w-full focus:border-transparent ${
             !selected ? 'text-gray-400' : ''
           }`}

@@ -45,7 +45,9 @@ const Select = ({
 
   return (
     <div ref={ref} className="relative flex flex-col flex-wrap items-stretch">
+      <label className="text-sm text-gray-600">{label}</label>
       <SelectInput
+        label={label}
         hasError={!open && hasError}
         selected={selected}
         onChange={(e) => {
