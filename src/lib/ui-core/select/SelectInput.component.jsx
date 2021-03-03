@@ -26,7 +26,7 @@ const SelectInput = ({
 
   return (
     <div
-      className={`bg-white border border-gray-300 cursor-pointer duration-150 ease-in-out 
+      className={`bg-white border border-gray-300 cursor-pointer 
       flex flex-column focus:border-blue-300 focus:outline-none focus:shadow-outline-blue 
       justify-between relative rounded shadow-sm sm:leading-1 sm:text-sm text-left 
       transition w-full ${hasError ? errorClasses : ''} ${className}`}

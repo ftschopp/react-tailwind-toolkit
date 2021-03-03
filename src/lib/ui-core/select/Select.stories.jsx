@@ -50,3 +50,22 @@ WithSelection.args = {
     { id: '3', description: 'Uruguay' },
   ],
 };
+
+export const WithError = (args) => (
+  <Select
+    {...args}
+    error="Required"
+    onConfirm={() => alert('On button confirm!')}
+    onCancel={() => alert('On button cancel!')}
+  />
+);
+
+WithError.args = {
+  label: 'Countries',
+  value: '',
+  options: [
+    { id: '1', description: 'Argentina' },
+    { id: '2', description: 'Brasil' },
+    { id: '3', description: 'Uruguay' },
+  ],
+};
