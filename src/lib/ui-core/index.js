@@ -22,3 +22,4 @@ export * from './callout';
 export * from './datepicker';
 export * from './pop-confirm';
 export * from './select';
+export * from './progress-step-bar';
