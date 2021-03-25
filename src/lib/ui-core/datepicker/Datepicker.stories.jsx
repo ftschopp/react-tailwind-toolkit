@@ -16,7 +16,7 @@ export default {
 export const Standard = (args) => <Datepicker {...args} />;
 
 export const WithValue = (args) => (
-  <Datepicker {...args} value={'2021-01-01'} />
+  <Datepicker {...args} value={'2021-01-01'} label="Fecha de Nacimiento"/>
 );
 
 export const WithError = (args) => (

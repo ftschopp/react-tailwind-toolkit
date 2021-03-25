@@ -15,7 +15,7 @@ const Select = ({
   onBlur,
   ...props
 }) => {
-  const hasError = !isNilOrEmpty(error);
+  const hasError = touched && !isNilOrEmpty(error);
 
   const [open, setOpen] = useState(false);
   const defaultOption = { id: '', description: 'Seleccione una opción' };
@@ -71,9 +71,12 @@ const Select = ({
           />
         </div>
       )}
-      <p className="text-xs text-red-600 h-5">
-        {!open && hasError ? error : ''}
+      {!open && hasError && 
+        <p className="text-xs text-red-600 h-5">
+        {error}
       </p>
+      }
+    
     </div>
   );
 };

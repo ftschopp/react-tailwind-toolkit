@@ -34,7 +34,7 @@ const SelectInput = ({
       <div className="w-full flex items-center pl-2">
         <input
           readOnly={true}
-          className={`cursor-pointer py-1 pl-2 placeholder-gray-400 relative bg-transparent border border-transparent rounded focus:ring-0
+          className={`cursor-pointer pl-2 placeholder-gray-400 relative bg-transparent border border-transparent rounded focus:ring-0
           text-sm focus:outline-none w-full focus:border-transparent ${
             !selected ? 'text-gray-400' : ''
           }`}
