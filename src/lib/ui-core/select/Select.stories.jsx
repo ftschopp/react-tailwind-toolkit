@@ -55,6 +55,7 @@ export const WithError = (args) => (
   <Select
     {...args}
     error="Required"
+    touched={true}
     onConfirm={() => alert('On button confirm!')}
     onCancel={() => alert('On button cancel!')}
   />

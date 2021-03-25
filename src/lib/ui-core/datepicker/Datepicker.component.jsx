@@ -9,7 +9,7 @@ import useOnClickOutside from '../../hooks/click-outside';
  *
  * @param {*} param0
  */
-const Datepicker = ({ className, value, onChange, error, touched, onBlur }) => {
+const Datepicker = ({ className, name, label, value, onChange, error, touched, onBlur }) => {
   const [showBody, setShowBody] = useState(false);
 
   const [currentDate, setCurrentDate] = useState(
@@ -58,11 +58,17 @@ const Datepicker = ({ className, value, onChange, error, touched, onBlur }) => {
   const hasError = error && touched;
 
   return (
+    <div>
+    <label htmlFor={name} className="text-sm text-gray-600">
+      {label}
+    </label>
     <div
       ref={ref}
       className={`relative flex flex-wrap items-stretch ${className}`}
     >
+   
       <CalendarInput
+        name={name}
         hasError={hasError}
         onClick={(e) => {
           setShowBody(!showBody);
@@ -72,7 +78,7 @@ const Datepicker = ({ className, value, onChange, error, touched, onBlur }) => {
         }
         // value={format(selectedDate, 'yyyy-MM-dd')}
       />
-      <p className="text-sm text-red-600">{error}</p>
+     {error && <p className="text-sm text-red-600">{error}</p>}
       {showBody && (
         <CalendarBody
           currentDate={currentDate}
@@ -82,6 +88,7 @@ const Datepicker = ({ className, value, onChange, error, touched, onBlur }) => {
           onClickDate={onClickDate}
         />
       )}
+    </div>
     </div>
   );
 };

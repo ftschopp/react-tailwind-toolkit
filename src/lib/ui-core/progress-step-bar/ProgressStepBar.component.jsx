@@ -43,8 +43,11 @@ const getActiveStepNumber = compose(
   find(propSatisfies(gt(100), 'porcentage'))
 );
 
-const ProgressStepBar = ({ className, steps }) => {
-  const activeStep = useMemo(() => getActiveStepNumber(steps), [steps]);
+const ProgressStepBar = ({ className, steps, currentStep, usePorcentage }) => {
+  const activeStep = useMemo(
+    () => (usePorcentage ? getActiveStepNumber(steps) : currentStep),
+    [currentStep, steps, usePorcentage]
+  );
 
   const stepLength = steps.length;
 
@@ -67,7 +70,11 @@ const ProgressStepBar = ({ className, steps }) => {
             </div>
             {!isLastStep && (
               <div class="row-start-1 col-span-2">
-                <StepProgress porcentage={porcentage} />
+                <StepProgress
+                  porcentage={
+                    usePorcentage ? porcentage : i + 1 <= activeStep ? 100 : 0
+                  }
+                />
               </div>
             )}
             <div
