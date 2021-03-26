@@ -25,7 +25,7 @@ const Datepicker = ({ className, name, label, value, onChange, error, touched, o
   // Call hook passing in the ref and a function to call on outside click
   useOnClickOutside(ref, (aaa) => {
     setShowBody(false);
-    onBlur();
+    onBlur && onBlur();
   });
 
   const onNextClick = useCallback(() => {
@@ -57,16 +57,15 @@ const Datepicker = ({ className, name, label, value, onChange, error, touched, o
 
   const hasError = error && touched;
 
-  return (
-    <div>
-    <label htmlFor={name} className="text-sm text-gray-600">
-      {label}
-    </label>
+  return ( 
     <div
       ref={ref}
       className={`relative flex flex-wrap items-stretch ${className}`}
     >
-   
+      <label htmlFor={name} className="text-sm text-gray-600">
+        {label}
+      </label>
+      
       <CalendarInput
         name={name}
         hasError={hasError}
@@ -89,7 +88,7 @@ const Datepicker = ({ className, name, label, value, onChange, error, touched, o
         />
       )}
     </div>
-    </div>
+    
   );
 };
 

@@ -82,7 +82,7 @@ function CalendarBody({
   };
 
   return (
-    <div className="absolute bg-white border mt-8 rounded-b-lg shadow-md w-64 z-10">
+    <div className="absolute bg-white border mt-12 rounded-b-lg shadow-md w-64 z-10">
       <div className="w-full p-2">
         <TitleHeader
           date={isNilOrEmpty(selectedDate) ? currentDate : selectedDate}
