@@ -7,6 +7,7 @@ import image from '@rollup/plugin-image';
 import visualizer from 'rollup-plugin-visualizer';
 import pkg from './package.json';
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   input: './src/lib/index.js',
   output: [
