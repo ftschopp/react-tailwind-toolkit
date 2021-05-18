@@ -1,7 +1,7 @@
 import React from 'react';
 
 // eslint-disable-next-line react/display-name
-const IndeterminateCheckbox = React.forwardRef(({ indeterminate, isSelected, ...rest }, ref) => {
+const IndeterminateCheckbox = React.forwardRef(({ indeterminate, ...rest }, ref) => {
   const defaultRef = React.useRef();
   const resolvedRef = ref || defaultRef;
 

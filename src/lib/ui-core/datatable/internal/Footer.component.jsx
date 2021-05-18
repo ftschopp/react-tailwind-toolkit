@@ -17,7 +17,7 @@ function Footer({
   onPageChanged,
 }: Props): React$Element<'div'> {
   return (
-    <div className="border-t-2 bg-gray-100 px-4 py-3 hidden sm:flex-1 sm:flex sm:items-center sm:justify-between h-16">
+    <div className="border-t-2 bg-gray-50 px-4 py-3 hidden sm:flex-1 sm:flex sm:items-center sm:justify-between h-16">
       <div className="px-2">
         {loading && <p className="text-sm leading-5 text-gray-700">{loadingLabel}</p>}
       </div>

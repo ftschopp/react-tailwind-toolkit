@@ -13,17 +13,17 @@ const Datepicker = ({ className, name, label, value, onChange, error, touched, o
   const [showBody, setShowBody] = useState(false);
 
   const [currentDate, setCurrentDate] = useState(
-    isNilOrEmpty(value) ? getTime(new Date()) : parseISO(value)
+    isNilOrEmpty(value) ? getTime(new Date()) : parseISO(value),
     // isNilOrEmpty(value) ? '' : parseISO(value)
   );
   const [selectedDate, setSelectedDate] = useState(
     // isNilOrEmpty(value) ? getTime(new Date()) : parseISO(value)
-    isNilOrEmpty(value) ? '' : parseISO(value)
+    isNilOrEmpty(value) ? '' : parseISO(value),
   );
 
   const ref = useRef();
   // Call hook passing in the ref and a function to call on outside click
-  useOnClickOutside(ref, (aaa) => {
+  useOnClickOutside(ref, aaa => {
     setShowBody(false);
     onBlur && onBlur();
   });
@@ -33,7 +33,7 @@ const Datepicker = ({ className, name, label, value, onChange, error, touched, o
       months: 1,
     });
     setCurrentDate(getTime(result));
-    //setSelectedDate(getTime(startOfMonth(result)));
+    // setSelectedDate(getTime(startOfMonth(result)));
   }, [currentDate]);
 
   const onBackClick = useCallback(() => {
@@ -42,42 +42,37 @@ const Datepicker = ({ className, name, label, value, onChange, error, touched, o
     });
 
     setCurrentDate(getTime(result));
-    //setSelectedDate(getTime(startOfMonth(result)));
+    // setSelectedDate(getTime(startOfMonth(result)));
   }, [currentDate]);
 
   const onClickDate = useCallback(
-    (event) => {
+    event => {
       const { timestamp } = event;
       setSelectedDate(timestamp);
       setShowBody(!showBody);
       onChange(format(timestamp, 'yyyy-MM-dd'));
     },
-    [onChange, showBody]
+    [onChange, showBody],
   );
 
   const hasError = error && touched;
 
-  return ( 
-    <div
-      ref={ref}
-      className={`relative flex flex-wrap items-stretch ${className}`}
-    >
+  return (
+    <div ref={ref} className={`relative flex flex-wrap items-stretch ${className}`}>
       <label htmlFor={name} className="text-sm text-gray-600">
         {label}
       </label>
-      
+
       <CalendarInput
         name={name}
         hasError={hasError}
-        onClick={(e) => {
+        onClick={e => {
           setShowBody(!showBody);
         }}
-        value={
-          isNilOrEmpty(selectedDate) ? '' : format(selectedDate, 'yyyy-MM-dd')
-        }
+        value={isNilOrEmpty(selectedDate) ? '' : format(selectedDate, 'yyyy-MM-dd')}
         // value={format(selectedDate, 'yyyy-MM-dd')}
       />
-     {error && <p className="text-sm text-red-600">{error}</p>}
+      {hasError && <p className="text-xs text-red-600">{error}</p>}
       {showBody && (
         <CalendarBody
           currentDate={currentDate}
@@ -88,7 +83,6 @@ const Datepicker = ({ className, name, label, value, onChange, error, touched, o
         />
       )}
     </div>
-    
   );
 };
 
