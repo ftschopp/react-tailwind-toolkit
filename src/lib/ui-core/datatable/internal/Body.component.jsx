@@ -1,4 +1,5 @@
 // @flow
+import { ro } from 'date-fns/locale';
 import React from 'react';
 import Icon from '../../../icons';
 
@@ -18,6 +19,7 @@ const getStyles = (props, align = 'left') => [
 type Props = {
   page: any,
   prepareRow: any,
+  toggleAllRowsSelected: any,
   selectedRowIds: any,
   onRowClick: any,
   showedRowsPerPage: any,
@@ -30,6 +32,7 @@ type Props = {
 function Body({
   page,
   prepareRow,
+  toggleAllRowsSelected,
   selectedRowIds,
   onRowClick,
   showedRowsPerPage,
@@ -51,19 +54,31 @@ function Body({
     >
       {page.map((row, irow) => {
         prepareRow(row);
-        const isSelected = row.id === selectedRowIds ? 'bg-blue-200' : '';
+
         return (
           <div
             key={irow}
             className="tr cursor-pointer  hover:bg-blue-100"
-            onClick={() => onRowClick(row)}
-            {...row.getRowProps()}
+            {...row.getRowProps({
+              onClick: e => {
+                toggleAllRowsSelected(false);
+                if (row.isSelected) {
+                  toggleAllRowsSelected(false);
+                  onRowClick && onRowClick(null);
+                } else {
+                  row.toggleRowSelected();
+                  onRowClick && onRowClick(row.values);
+                }
+              },
+            })}
           >
             {row.cells.map((cell, icell) => {
               return (
                 <div
                   key={icell}
-                  className={`td px-6 py-2 text-sm text-gray-700 flex justify-center items-center ${isSelected}`}
+                  className={`td px-6 py-2 text-sm text-gray-700 flex justify-center items-center ${
+                    row.isSelected ? 'bg-blue-300' : ''
+                  }`}
                   {...cell.getCellProps(cellProps)}
                 >
                   {cell.render('Cell')}

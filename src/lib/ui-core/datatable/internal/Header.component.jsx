@@ -7,7 +7,7 @@ type Props = {
 
 function Header({ headerGroups }: Props): React$Element<'div'> {
   return (
-    <div className="min-w-full divide-y divide-gray-300 bg-gray-100 border-b-2">
+    <div className="min-w-full divide-y divide-gray-300 bg-gray-50 border-b-2">
       {headerGroups.map((headerGroup, index) => {
         return (
           <div key={index} {...headerGroup.getHeaderGroupProps({})} className="tr">
