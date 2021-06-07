@@ -25,6 +25,7 @@ type Props = {
   showedRowsPerPage: any,
   emptyDataLabel: string,
   loadingLabel: string,
+  borderRounded: string,
 };
 
 function transform(id, selectedRowIds) {
@@ -44,6 +45,7 @@ function DataTable({
   showedRowsPerPage,
   emptyDataLabel,
   loadingLabel,
+  borderRounded,
 }: Props): React$Element<'div'> {
   const totalCount = data ? data.length : 0;
   const defaultColumn = React.useMemo(
@@ -132,7 +134,9 @@ function DataTable({
 
   return (
     <div
-      className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg"
+      className={`shadow overflow-hidden border-b border-gray-200 ${
+        borderRounded ? 'sm:rounded-lg' : ''
+      }`}
       {...getTableProps()}
     >
       <Header headerGroups={headerGroups} />
@@ -166,6 +170,7 @@ DataTable.defaultProps = {
   showedRowsPerPage: 10,
   loadingLabel: 'loading...',
   emptyDataLabel: 'no data found',
+  borderRounded: true,
 };
 
 export default DataTable;

@@ -25,3 +25,4 @@ export * from './select';
 export * from './progress-step-bar';
 export * from './datatable';
 export * from './modal';
+export * from './text-autocomplete-input';

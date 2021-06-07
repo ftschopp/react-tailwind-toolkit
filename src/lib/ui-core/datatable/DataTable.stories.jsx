@@ -15,6 +15,7 @@ export default {
     data: { control: 'text' },
     loading: { control: 'boolean' },
     emptyDataLabel: { control: 'text' },
+    borderRounded: { control: 'boolean' },
   },
 };
 
