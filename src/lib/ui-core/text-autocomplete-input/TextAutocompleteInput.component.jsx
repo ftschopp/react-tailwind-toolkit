@@ -1,7 +1,8 @@
 // @flow
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Icon } from '../../icons';
 import { isNilOrEmpty } from 'ramda-adjunct';
+
 type Props = {
   className: string,
   name: string,
@@ -28,31 +29,44 @@ const SearchIcon = () => {
   );
 };
 
-const ListOptions = ({ options, fieldValue, fieldTitle }) => {
+const WithoutOptions = () => {
   return (
-    <div className="relative flex flex-wrap items-stretch flex-col border rounded-b border-t-0 max-h-40 overflow-y-scroll">
+    <div className="flex flex-col justify-center items-center h-64">
+      <Icon name="inbox" width="30px" height="30px" className="fill-current text-gray-500" />
+      <p className="text-sm text-gray-500">No hay resultados</p>
+    </div>
+  );
+};
+
+const ListOptions = ({ options, fieldValue, fieldTitle, onOptionClick }) => {
+  return (
+    // <div className="relative flex flex-wrap items-stretch flex-col border rounded-b border-t-0 max-h-40 overflow-y-scroll">
+    <div className="absolute bg-white border border-gray-300 max-h-64 mt-0 overflow-y-scroll rounded-b w-full z-10">
       <ul>
-        {options.map((option, i) => {
-          return (
-            <li
-              key={i}
-              className={`hover:bg-gray-100 cursor-pointer ${
-                options.length - 1 === i ? 'border-0' : 'border-dashed'
-              } border-b`}
-            >
-              {!isNilOrEmpty(fieldTitle) && (
-                <p className="text-xs text-gray-600 p-1">{option[fieldTitle]}</p>
-              )}
-              <p className="text-gray-600 p-1 px-2">{option[fieldValue]}</p>
-            </li>
-          );
-        })}
+        {options?.length === 0 && <WithoutOptions />}
+        {options?.length > 0 &&
+          options.map((option, i) => {
+            return (
+              <li
+                key={i}
+                onClick={() => onOptionClick(option)}
+                className={`hover:bg-gray-100 cursor-pointer ${
+                  options.length - 1 === i ? 'border-0' : 'border-dashed'
+                } border-b`}
+              >
+                {!isNilOrEmpty(fieldTitle) && (
+                  <p className="text-xs text-gray-600 p-1">{option[fieldTitle]}</p>
+                )}
+                <p className="text-gray-600 p-1 px-2">{option[fieldValue]}</p>
+              </li>
+            );
+          })}
       </ul>
     </div>
   );
 };
 
-function TextAutocompleteInput(props: Props) {
+function TextAutocompleteInput(props: Props): React$Element<'div'> {
   const {
     className,
     name,
@@ -67,6 +81,7 @@ function TextAutocompleteInput(props: Props) {
     touched,
     error,
     autocomplete,
+    onOptionClick,
     ...rest
   } = props;
 
@@ -82,6 +97,7 @@ function TextAutocompleteInput(props: Props) {
   text-sm shadow-sm focus:outline-none w-full pl-8 ${icon ? 'pl-10' : ''} ${
     hasError ? 'pr-10 focus:border-red-300' : 'focus:border-blue-300'
   } ${hasError ? errorClasses : ''}`;
+
   return (
     <div className="relative flex flex-col flex-wrap items-stretch">
       <label htmlFor={name} className="text-sm text-gray-600">
@@ -96,7 +112,14 @@ function TextAutocompleteInput(props: Props) {
         {touched && error && <p className="text-xs text-red-600">{error}</p>}
       </div>
       {showSuggestions && (
-        <ListOptions options={options} fieldValue={fieldValue} fieldTitle={fieldTitle} />
+        <div>
+          <ListOptions
+            options={options}
+            fieldValue={fieldValue}
+            fieldTitle={fieldTitle}
+            onOptionClick={onOptionClick}
+          />
+        </div>
       )}
     </div>
   );

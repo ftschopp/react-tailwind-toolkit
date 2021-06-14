@@ -12,10 +12,9 @@ export default function Modal(props) {
 
     const transitionEnd = () => setActive(open);
 
-    const keyHandler = (e) =>
-      !locked && [27].indexOf(e.which) >= 0 && onClose();
+    const keyHandler = e => !locked && [27].indexOf(e.which) >= 0 && onClose();
 
-    const clickHandler = (e) => !locked && e.target === current && onClose();
+    const clickHandler = e => !locked && e.target === current && onClose();
 
     if (current) {
       current.addEventListener('transitionend', transitionEnd);
@@ -45,20 +44,16 @@ export default function Modal(props) {
   return (
     <React.Fragment>
       {(open || active) && (
-        <Portal className={`modal-portal`}>
+        <Portal className={`modal-portal z-20`}>
           <div
             ref={backdrop}
             className={`portal-container ${
-              active && open
-                ? 'portal-container-active'
-                : 'portal-container-inactive'
+              active && open ? 'portal-container-active' : 'portal-container-inactive'
             }`}
           >
             <div
               className={`${className} ${
-                active && open
-                  ? 'modal-content-active'
-                  : 'modal-content-inactive'
+                active && open ? 'modal-content-active' : 'modal-content-inactive'
               }`}
             >
               {props.children}
