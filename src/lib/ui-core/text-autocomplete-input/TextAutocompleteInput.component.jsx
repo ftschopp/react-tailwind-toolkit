@@ -38,10 +38,14 @@ const WithoutOptions = () => {
   );
 };
 
-const ListOptions = ({ options, fieldValue, fieldTitle, onOptionClick }) => {
+const ListOptions = ({ options, fieldValue, fieldTitle, onOptionClick, hasError }) => {
   return (
     // <div className="relative flex flex-wrap items-stretch flex-col border rounded-b border-t-0 max-h-40 overflow-y-scroll">
-    <div className="absolute bg-white border border-gray-300 max-h-64 mt-0 overflow-y-scroll rounded-b w-full z-10">
+    <div
+      className={`absolute bg-white border border-gray-300 max-h-64 mt-0 overflow-y-scroll rounded-b w-full z-20 ${
+        hasError ? 'bg-red-100 border-red-300' : ''
+      }`}
+    >
       <ul>
         {options?.length === 0 && <WithoutOptions />}
         {options?.length > 0 &&
@@ -82,6 +86,7 @@ function TextAutocompleteInput(props: Props): React$Element<'div'> {
     error,
     autocomplete,
     onOptionClick,
+    onSearch,
     ...rest
   } = props;
 
@@ -98,6 +103,13 @@ function TextAutocompleteInput(props: Props): React$Element<'div'> {
     hasError ? 'pr-10 focus:border-red-300' : 'focus:border-blue-300'
   } ${hasError ? errorClasses : ''}`;
 
+  const onChange = event => {
+    const { value } = event.target;
+
+    if (value.length >= 3) {
+      onSearch(value);
+    }
+  };
   return (
     <div className="relative flex flex-col flex-wrap items-stretch">
       <label htmlFor={name} className="text-sm text-gray-600">
@@ -106,10 +118,9 @@ function TextAutocompleteInput(props: Props): React$Element<'div'> {
       <div className={`relative flex flex-wrap items-stretch ${className}`}>
         <div className="flex w-full">
           <SearchIcon />
-          <input className={fieldClassName} name={name} {...rest} />
+          <input className={fieldClassName} name={name} {...rest} onChange={onChange} />
           {loading && <Loading />}
         </div>
-        {touched && error && <p className="text-xs text-red-600">{error}</p>}
       </div>
       {showSuggestions && (
         <div>
@@ -118,9 +129,11 @@ function TextAutocompleteInput(props: Props): React$Element<'div'> {
             fieldValue={fieldValue}
             fieldTitle={fieldTitle}
             onOptionClick={onOptionClick}
+            hasError={touched && error}
           />
         </div>
       )}
+      {touched && error && <p className="text-xs text-red-600">{error}</p>}
     </div>
   );
 }
