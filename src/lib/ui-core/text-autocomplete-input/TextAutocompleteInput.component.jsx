@@ -20,7 +20,7 @@ const Loading = () => {
     </div>
   );
 };
-
+// comment
 const SearchIcon = () => {
   return (
     <div className="flex z-10 leading-snug font-normal text-center absolute bg-transparent rounded text-base items-center justify-center h-8 w-8 left-0">
