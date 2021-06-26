@@ -1,8 +1,9 @@
 // @flow
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import usePrevious from '../../hooks/use-previous';
 import { Icon } from '../../icons';
 import { isNilOrEmpty } from 'ramda-adjunct';
-
+import { pluck, equals, compose, propOr } from 'ramda';
 type Props = {
   className: string,
   name: string,
@@ -52,7 +53,10 @@ const ListOptions = ({ options, fieldValue, fieldTitle, onOptionClick, hasError 
             return (
               <li
                 key={i}
-                onClick={() => onOptionClick(option)}
+                onClick={e => {
+                  console.log('event click', e);
+                  onOptionClick(option);
+                }}
                 className={`hover:bg-gray-100 cursor-pointer ${
                   options.length - 1 === i ? 'border-0' : 'border-dashed'
                 } border-b`}
@@ -76,18 +80,32 @@ function TextAutocompleteInput(props: Props): React$Element<'div'> {
     icon,
     label,
     options,
-    showSuggestions,
-    loading,
     fieldValue,
     fieldTitle,
     showCheck,
     touched,
     error,
     autocomplete,
-    onOptionClick,
     onSearch,
+    onOptionClick,
+    onChange,
+    onBlur,
     ...rest
   } = props;
+
+  const getIds = compose(pluck('id'), propOr([], 'options'));
+  const [searching, setSearching] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const prevOptions = usePrevious({ options });
+  useEffect(() => {
+    const ids = getIds(prevOptions);
+
+    if (equals(ids, pluck('id')(options))) {
+    } else {
+      setSearching(false);
+      setShowSuggestions(true);
+    }
+  }, [getIds, options, prevOptions]);
 
   const hasError = touched && error;
   const errorClasses = `text-red-300 bg-red-100 border-red-300
@@ -100,13 +118,30 @@ function TextAutocompleteInput(props: Props): React$Element<'div'> {
     hasError ? 'pr-10 focus:border-red-300' : 'focus:border-blue-300'
   } ${hasError ? errorClasses : ''}`;
 
-  const onChange = event => {
-    const { value } = event.target;
+  const [timeoutId, setTimeoutId] = useState();
 
-    if (value.length >= 3) {
-      onSearch(value);
-    }
-  };
+  const onInputChange = useCallback(
+    e => {
+      clearTimeout(timeoutId);
+      const id = setTimeout(() => {
+        const { value } = e.target;
+        setSearching(true);
+        onSearch && onSearch(value);
+      }, 800);
+      setTimeoutId(id);
+      onChange && onChange(e);
+    },
+    [onChange, onSearch, timeoutId],
+  );
+
+  const onInputBlur = useCallback(
+    e => {
+      setShowSuggestions(false);
+      onBlur && onBlur(e);
+    },
+    [onBlur],
+  );
+
   return (
     <div className="relative flex flex-col flex-wrap items-stretch">
       <label htmlFor={name} className="text-sm text-gray-600">
@@ -115,17 +150,22 @@ function TextAutocompleteInput(props: Props): React$Element<'div'> {
       <div className={`relative flex flex-wrap items-stretch ${className}`}>
         <div className="flex w-full">
           <SearchIcon />
-          <input className={fieldClassName} name={name} {...rest} onChange={onChange} />
-          {loading && <Loading />}
+          <input className={fieldClassName} name={name} onChange={onInputChange} {...rest} />
+          {searching && <Loading />}
         </div>
       </div>
       {showSuggestions && (
         <div>
           <ListOptions
+            onBlur={onInputBlur}
             options={options}
             fieldValue={fieldValue}
             fieldTitle={fieldTitle}
-            onOptionClick={onOptionClick}
+            onOptionClick={e => {
+              console.log('OPTION');
+              onOptionClick && onOptionClick(e);
+              setShowSuggestions(false);
+            }}
             hasError={touched && error}
           />
         </div>
