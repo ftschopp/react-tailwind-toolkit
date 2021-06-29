@@ -37,23 +37,13 @@ const ButtonContent = ({
     <>
       <span className="flex justify-center w-8 px-2">
         {leftIcon && (
-          <Icon
-            name={leftIcon}
-            width="18px"
-            height="18px"
-            className={leftIconClassName}
-          />
+          <Icon name={leftIcon} width="18px" height="18px" className={leftIconClassName} />
         )}
       </span>
-      <span className="w-full text-sm text-white">{children}</span>
+      <span className="w-full text-sm text-white py-1">{children}</span>
       <span className="flex justify-center w-8 px-2">
         {rightIcon && (
-          <Icon
-            name={rightIcon}
-            width="16px"
-            height="16px"
-            className={rightIconClassName}
-          />
+          <Icon name={rightIcon} width="16px" height="16px" className={rightIconClassName} />
         )}
       </span>
     </>
@@ -72,7 +62,7 @@ const Button = ({
   ...props
 }) => {
   const cursor = isLoading ? 'cursor-not-allowed' : 'cursor-pointer';
-  const classes = `w-32 h-8 border border-gray-light inline-flex items-center rounded-md transition 
+  const classes = `w-32 border border-gray-light inline-flex items-center rounded-md transition
   ease-in-out duration-150 ${cursor}`;
   const focusClasses = `focus:outline-none`;
   const hoverClasses = `hover:bg-gray-100 hover:border-gray-400`;
