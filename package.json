@@ -90,13 +90,11 @@
     "dependencies": {
         "@tailwindcss/forms": "^0.2.1",
         "date-fns": "^2.21.3",
-        "formik": "^2.2.8",
         "ramda": "^0.27.1",
         "ramda-adjunct": "^2.28.0",
         "react-table": "^7.6.1",
         "tailwindcss": "^2.1.2",
-        "wicg-inert": "^3.1.0",
-        "yup": "^0.32.8"
+        "wicg-inert": "^3.1.0"
     },
     "lint-staged": {
         "src/**/*.{js,jsx}": [

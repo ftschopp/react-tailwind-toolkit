@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { isNilOrEmpty } from 'ramda-adjunct';
 import { Icon } from '../../icons';
 
@@ -81,6 +81,9 @@ const NoElements = ({ emptyResultLabel }) => {
 };
 
 export default function AutocompleteInput({
+  name,
+  placeholder,
+  type,
   icon,
   options,
   fieldTitle,
@@ -88,6 +91,7 @@ export default function AutocompleteInput({
   value,
   onChange,
   onSearch,
+  onSelect,
   loading,
   touched,
   error,
@@ -99,24 +103,25 @@ export default function AutocompleteInput({
   const [timeoutId, setTimeoutId] = useState();
 
   const select = option => {
-    onChange(option.name);
+    // onChange(option.name);
+    onSelect(option);
     setShowOptions(false);
   };
 
-  const handleChange = text => {
-    onChange(text);
-    setCursor(-1);
+  // const handleChange = text => {
+  //   setCursor(-1);
 
-    clearTimeout(timeoutId);
-    const id = setTimeout(() => {
-      onSearch && onSearch(text);
-    }, 500);
-    setTimeoutId(id);
+  //   clearTimeout(timeoutId);
+  //   const id = setTimeout(() => {
+  //     onSearch && onSearch(text);
+  //   }, 500);
+  //   setTimeoutId(id);
 
-    if (!showOptions) {
-      setShowOptions(true);
-    }
-  };
+  //   if (!showOptions) {
+  //     setShowOptions(true);
+  //   }
+  //   onChange && onChange(text);
+  // };
 
   const filteredOptions = options; // .filter(option => option.includes(value));
 
@@ -177,9 +182,29 @@ export default function AutocompleteInput({
     hasError ? 'pr-10 focus:border-red-300' : 'focus:border-blue-300'
   } ${hasError ? errorClasses : ''}`;
   const [shouldClose, setShouldClose] = useState(false);
+
+  const onInputChange = useCallback(
+    e => {
+      setCursor(-1);
+
+      clearTimeout(timeoutId);
+      const id = setTimeout(() => {
+        const { value } = e.target;
+        onSearch && onSearch(value);
+      }, 500);
+      setTimeoutId(id);
+
+      if (!showOptions) {
+        setShowOptions(true);
+      }
+      onChange && onChange(e);
+    },
+    [onChange, onSearch, showOptions, timeoutId],
+  );
+
   return (
     <div
-      className="relative w-64 "
+      className="relative"
       ref={ref}
       onMouseDown={() => {
         setShouldClose(false);
@@ -194,10 +219,14 @@ export default function AutocompleteInput({
       <div className="flex">
         <SearchIcon />
         <input
-          type="text"
+          name={name}
+          touched={touched}
+          placeholder={placeholder}
+          type={type}
           className={fieldClassName}
           value={value}
-          onChange={e => handleChange(e.target.value)}
+          // onChange={e => handleChange(e.target.value)}
+          onChange={onInputChange}
           onFocus={() => {
             setShowOptions(true);
             setShouldClose(true);
@@ -222,4 +251,6 @@ export default function AutocompleteInput({
 
 AutocompleteInput.defaultProps = {
   emptyResultLabel: 'No hay resultados',
+  placeHolder: '',
+  type: 'text',
 };
