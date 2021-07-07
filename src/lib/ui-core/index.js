@@ -27,3 +27,4 @@ export * from './datatable';
 export * from './modal';
 export * from './text-autocomplete-input';
 export * from './autocomplete';
+export * from './text-area';
