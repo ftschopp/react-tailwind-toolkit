@@ -1,4 +1,0 @@
-{
-  "presets": ["@babel/preset-react", "@babel/env"],
-  "plugins": ["transform-flow-strip-types", "@babel/plugin-proposal-class-properties"]
-}
