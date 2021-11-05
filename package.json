@@ -51,11 +51,11 @@
   "size-limit": [
     {
       "path": "dist/react-tailwind-toolkit.cjs.production.min.js",
-      "limit": "10 KB"
+      "limit": "200 KB"
     },
     {
       "path": "dist/react-tailwind-toolkit.esm.js",
-      "limit": "10 KB"
+      "limit": "200 KB"
     }
   ],
   "devDependencies": {
@@ -63,6 +63,7 @@
     "@size-limit/preset-small-lib": "^5.0.1",
     "@storybook/addon-essentials": "^6.3.4",
     "@storybook/addon-info": "^5.3.21",
+    "@storybook/addon-knobs": "^6.3.1",
     "@storybook/addon-links": "^6.3.4",
     "@storybook/addon-postcss": "^2.0.0",
     "@storybook/addons": "^6.3.4",
