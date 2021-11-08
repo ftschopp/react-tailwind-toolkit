@@ -11,6 +11,7 @@
   "module": "dist/react-tailwind-toolkit.esm.js",
   "files": [
     "dist",
+    "dist/tailwind.css",
     "src"
   ],
   "release": {
