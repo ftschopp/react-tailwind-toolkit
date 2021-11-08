@@ -3,7 +3,7 @@ name: Run tests and publish
 on:
   push:
     branches:
-      - develop
+      # - develop
       - master
     paths-ignore:
       - 'docs/**'
